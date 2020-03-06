@@ -1,55 +1,120 @@
-import { Component } from 'react'
-import { Input, Tooltip, Button } from 'antd'
+import { Component, useState } from 'react'
+import { Input, Tooltip, Row, Col, Button, Tree } from 'antd'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
+import { DownloadOutlined, ClearOutlined } from '@ant-design/icons'
 
 import randomNationId from '../../../libraries/randomNationId'
 
-class SingleRandom extends Component {
-  state = {
+const { Search } = Input
+
+const MultiRandom = () => {
+  const initState = {
     value: '',
-    loading: false,
+    array: [],
+    times: 0,
   }
 
-  enterLoading = () => {
-    this.setState({ loading: true })
-    setTimeout(() => {
-      this.setState({ loading: false })
-    }, 320)
-    const { id } = randomNationId(1)
-    this.setState({ value: id })
+  const [state, setState] = useState(initState)
+
+  const handleOnChange = e => {
+    const { value } = e.target
+    const reg = /^-?[0-9]*(\.[0-9]*)?$/
+    if (!isNaN(value) && reg.test(value) && parseInt(value) < 201) {
+      setState({ ...state, value: value })
+    }
   }
 
-  render() {
-    return (
-      <div>
-        <Tooltip
-          trigger={['focus']}
-          title="คัดลอกแล้ว !!"
-          placement="topLeft"
-          overlayClassName="numeric-input"
-        >
-          <CopyToClipboard text={this.state.value}>
-            <Input
-              placeholder="กดปุ่มเพื่อสุ่มเลขบัตร"
-              // enterButton="Search"
-              readOnly
-              value={this.state.value}
+  const handleOnSearch = value => {
+    const randomTimes = value * 1
+    if (randomTimes == 0) {
+      return alert('กรุณาใส่ตัวเลขก่อน')
+    }
+    const { id, times } = randomNationId(randomTimes)
+    setState({ ...state, array: id, times })
+  }
+
+  const downloadTxtFile = () => {
+    const element = document.createElement('a')
+    const file = new Blob([state.array.join('\n')], { type: 'text/plain' })
+    element.href = URL.createObjectURL(file)
+    element.download = 'random-nationID.txt'
+    document.body.appendChild(element)
+    element.click()
+  }
+
+  const clearArray = () => setState(initState)
+
+  return (
+    <div>
+      {state.times > 0 && <p>จำนวนการสุ่ม {state.times} ครั้ง</p>}
+      <Search
+        style={{ marginBottom: '10px' }}
+        placeholder="กรุณาใส่จำนวนเลขบัตรประชาชนที่ต้องการสุ่ม ตั้งแต่ 0-200"
+        enterButton="Search"
+        value={state.value}
+        size="large"
+        onSearch={handleOnSearch}
+        onChange={handleOnChange}
+      />
+      <Row
+        gutter={16}
+        style={{
+          height: '600px',
+          width: '100%',
+          overflowY: 'scroll',
+        }}
+      >
+        <Col span={24}>
+          {state.array.map((item, index) => (
+            <Tooltip
+              key={index}
+              trigger={'focus'}
+              title="คัดลอกแล้ว !!"
+              placement="topLeft"
+              overlayClassName="numeric-input"
+            >
+              <CopyToClipboard text={item}>
+                <div>
+                  <p>ผลการสุ่มครั้งที่ {index + 1}</p>
+                  <Input
+                    key={item}
+                    value={item}
+                    readOnly
+                    size="large"
+                    style={{ marginBottom: '10px' }}
+                  />
+                </div>
+              </CopyToClipboard>
+            </Tooltip>
+          ))}
+        </Col>
+      </Row>
+      {state.array.length > 0 && (
+        <Row gutter={16}>
+          <Col>
+            <Button
+              onClick={downloadTxtFile}
+              type="primary"
+              icon={<DownloadOutlined />}
               size="large"
-            />
-          </CopyToClipboard>
-        </Tooltip>
-
-        <Button
-          type="primary"
-          loading={this.state.loading}
-          onClick={this.enterLoading}
-          size="large"
-        >
-          เริ่มสุ่ม
-        </Button>
-      </div>
-    )
-  }
+            >
+              Download
+            </Button>
+          </Col>
+          <Col>
+            <Button
+              onClick={clearArray}
+              type="primary"
+              icon={<ClearOutlined />}
+              size="large"
+            >
+              Clear
+            </Button>
+          </Col>
+        </Row>
+      )}
+    </div>
+  )
 }
 
-export default SingleRandom
+export default MultiRandom
