@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Layout, Menu, Breadcrumb, Icon } from 'antd'
+import { GithubOutlined } from '@ant-design/icons'
 
 const { Header, Content, Footer, Sider } = Layout
 const { SubMenu } = Menu
@@ -42,7 +43,10 @@ class MainTheme extends Component {
             {this.props.children}
           </Content>
           <Footer style={{ textAlign: 'center' }}>
-            โปรแกรมสุ่มเลขบัตรประชาชน
+            Source Code{' '}
+            <a href="https://github.com/mklx1319/random-nation_id">
+              <GithubOutlined />
+            </a>
           </Footer>
         </Layout>
       </Layout>
