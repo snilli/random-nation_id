@@ -51,11 +51,11 @@ const MultiRandom = () => {
 
   return (
     <div>
-      {state.times > 0 && <p>จำนวนการสุ่ม {state.times} ครั้ง</p>}
+      {state.array.length > 0 && <p>จำนวนการสุ่มผิด {state.times} ครั้ง</p>}
       <Search
         style={{ marginBottom: '10px' }}
         placeholder="กรุณาใส่จำนวนเลขบัตรประชาชนที่ต้องการสุ่ม ตั้งแต่ 0-200"
-        enterButton="Search"
+        enterButton="Random"
         value={state.value}
         size="large"
         onSearch={handleOnSearch}
@@ -80,7 +80,7 @@ const MultiRandom = () => {
             >
               <CopyToClipboard text={item}>
                 <div>
-                  <p>ผลการสุ่มครั้งที่ {index + 1}</p>
+                  <p>ผลการสุ่มชุดที่ {index + 1}</p>
                   <Input
                     key={item}
                     value={item}
