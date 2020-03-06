@@ -174,11 +174,20 @@ var MultiRandom = function MultiRandom() {
 
   var handleOnChange = function handleOnChange(e) {
     var value = e.target.value;
+    console.log(value);
     var reg = /^-?[0-9]*(\.[0-9]*)?$/;
 
     if (!isNaN(value) && reg.test(value) && parseInt(value) < 201) {
       setState(_objectSpread({}, state, {
-        value: value
+        value: value * 1
+      }));
+    } else if (value == '') {
+      setState(_objectSpread({}, state, {
+        value: 0
+      }));
+    } else if (value > 200) {
+      setState(_objectSpread({}, state, {
+        value: 200
       }));
     }
   };
@@ -218,13 +227,13 @@ var MultiRandom = function MultiRandom() {
   return react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 48
+      lineNumber: 53
     },
     __self: this
   }, state.times > 0 && react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("p", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 49
+      lineNumber: 54
     },
     __self: this
   }, "\u0E08\u0E33\u0E19\u0E27\u0E19\u0E01\u0E32\u0E23\u0E2A\u0E38\u0E48\u0E21 ", state.times, " \u0E04\u0E23\u0E31\u0E49\u0E07"), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(Search, {
@@ -239,7 +248,7 @@ var MultiRandom = function MultiRandom() {
     onChange: handleOnChange,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 50
+      lineNumber: 55
     },
     __self: this
   }), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(antd_lib_row__WEBPACK_IMPORTED_MODULE_3___default.a, {
@@ -251,14 +260,14 @@ var MultiRandom = function MultiRandom() {
     },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 59
+      lineNumber: 64
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(antd_lib_col__WEBPACK_IMPORTED_MODULE_5___default.a, {
     span: 24,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 67
+      lineNumber: 72
     },
     __self: this
   }, state.array.map(function (item, index) {
@@ -270,26 +279,26 @@ var MultiRandom = function MultiRandom() {
       overlayClassName: "numeric-input",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 69
+        lineNumber: 74
       },
       __self: this
     }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(react_copy_to_clipboard__WEBPACK_IMPORTED_MODULE_11__["CopyToClipboard"], {
       text: item,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 76
+        lineNumber: 81
       },
       __self: this
     }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("div", {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 77
+        lineNumber: 82
       },
       __self: this
     }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement("p", {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 78
+        lineNumber: 83
       },
       __self: this
     }, "\u0E1C\u0E25\u0E01\u0E32\u0E23\u0E2A\u0E38\u0E48\u0E21\u0E04\u0E23\u0E31\u0E49\u0E07\u0E17\u0E35\u0E48 ", index + 1), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(antd_lib_input__WEBPACK_IMPORTED_MODULE_9___default.a, {
@@ -302,7 +311,7 @@ var MultiRandom = function MultiRandom() {
       },
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 79
+        lineNumber: 84
       },
       __self: this
     }))));
@@ -310,13 +319,13 @@ var MultiRandom = function MultiRandom() {
     gutter: 16,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 93
+      lineNumber: 98
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(antd_lib_col__WEBPACK_IMPORTED_MODULE_5___default.a, {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 94
+      lineNumber: 99
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(antd_lib_button__WEBPACK_IMPORTED_MODULE_1___default.a, {
@@ -325,20 +334,20 @@ var MultiRandom = function MultiRandom() {
     icon: react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_12__["DownloadOutlined"], {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 98
+        lineNumber: 103
       },
       __self: this
     }),
     size: "large",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 95
+      lineNumber: 100
     },
     __self: this
   }, "Download")), react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(antd_lib_col__WEBPACK_IMPORTED_MODULE_5___default.a, {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 104
+      lineNumber: 109
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(antd_lib_button__WEBPACK_IMPORTED_MODULE_1___default.a, {
@@ -347,14 +356,14 @@ var MultiRandom = function MultiRandom() {
     icon: react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_ant_design_icons__WEBPACK_IMPORTED_MODULE_12__["ClearOutlined"], {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 108
+        lineNumber: 113
       },
       __self: this
     }),
     size: "large",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 105
+      lineNumber: 110
     },
     __self: this
   }, "Clear"))));
@@ -553,7 +562,7 @@ var MainTheme = /*#__PURE__*/function (_Component) {
           lineNumber: 44
         },
         __self: this
-      }, "Ant Design \xA92018 Created by Ant UED")));
+      }, "\u0E42\u0E1B\u0E23\u0E41\u0E01\u0E23\u0E21\u0E2A\u0E38\u0E48\u0E21\u0E40\u0E25\u0E02\u0E1A\u0E31\u0E15\u0E23\u0E1B\u0E23\u0E30\u0E0A\u0E32\u0E0A\u0E19")));
     }
   }]);
 

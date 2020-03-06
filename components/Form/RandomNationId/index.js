@@ -18,9 +18,14 @@ const MultiRandom = () => {
 
   const handleOnChange = e => {
     const { value } = e.target
+    console.log(value)
     const reg = /^-?[0-9]*(\.[0-9]*)?$/
     if (!isNaN(value) && reg.test(value) && parseInt(value) < 201) {
-      setState({ ...state, value: value })
+      setState({ ...state, value: value * 1 })
+    } else if (value == '') {
+      setState({ ...state, value: 0 })
+    } else if (value > 200) {
+      setState({ ...state, value: 200 })
     }
   }
 

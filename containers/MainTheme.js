@@ -42,7 +42,7 @@ class MainTheme extends Component {
             {this.props.children}
           </Content>
           <Footer style={{ textAlign: 'center' }}>
-            Ant Design ©2018 Created by Ant UED
+            โปรแกรมสุ่มเลขบัตรประชาชน
           </Footer>
         </Layout>
       </Layout>
