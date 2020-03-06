@@ -5,10 +5,11 @@ function getRandomInt(min, max) {
 }
 
 const randomNationId = times => {
+  if (times == 0) return { id: [], times: 0 }
   let status = false
   const badNationid = []
   let goodNationid = []
-
+  
   while (goodNationid.length !== times) {
     let currentGood = ''
     while (status === false) {
